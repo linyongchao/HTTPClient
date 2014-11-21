@@ -11,7 +11,8 @@ public class Test {
 		for (int i = 0; i < 20; i++) {
 			Runnable run = new Runnable() {
 				public void run() {
-					String command = "/home/yangk/hello_world";
+					String command = "perl /home/yangk/bin/liys/software/diagnosis/bin/SNP_draw_eg.pl /share/data1/file/20140904085501.ab1 /home/yangk/result/"
+							+ Math.round(Math.random() * 100000);
 					String id = null;
 					try {
 						id = RunService.run(command);
@@ -26,7 +27,7 @@ public class Test {
 					}
 					String info = null;
 					try {
-						info = InfoService.getInfo(id);
+						info = StatusService.getStatus(id);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -38,12 +39,20 @@ public class Test {
 							e.printStackTrace();
 						}
 						try {
-							info = InfoService.getInfo(id);
+							info = StatusService.getStatus(id);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 						System.out.println(info);
 					}
+					String res = null;
+					try {
+						res = ResourcesService.getRes(id);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					System.out.println(res);
+					System.out.println("over");
 				}
 			};
 			exec.execute(run);
